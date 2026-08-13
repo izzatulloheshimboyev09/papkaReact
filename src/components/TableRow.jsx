@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 
-function TableRow({ user, handleDelete }) {
+function TableRow({ user, handleDelete, handleEdit }) {
   return (
     <tr className="border-b border-gray-200 hover:bg-gray-50">
       <td className="px-4 py-3 text-sm text-gray-700 font-semibold">
@@ -22,7 +22,11 @@ function TableRow({ user, handleDelete }) {
       <td className="px-4 py-3 text-sm text-gray-700">{user.city}</td>
       <td className="px-4 py-3 text-sm text-gray-700">{user.profession}</td>
       <td className="px-4 py-3 text-center space-x-2">
-        <Button variant={"secondary"} text="edit" />
+        <Button
+          variant={"secondary"}
+          text="edit"
+          onClick={() => handleEdit(user)}
+        />
         <Button
           variant={"danger"}
           text="delete"

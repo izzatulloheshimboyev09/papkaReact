@@ -1,20 +1,54 @@
 import React, { useState } from "react";
-import { users as initialUsers } from "../data/users";
 import TableRow from "./TableRow";
+import Button from "./Button";
+import UserModal from "./UserModal";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUser } from "../redux/UserSlice";
+import { deleteUser, addUser, editUser } from "../redux/UserSlice";
 
 function Table() {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
-  function handleDelete(id) {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleDelete = (id) => {
     dispatch(deleteUser(id));
-  }
+  };
+
+  const handleOpenAddModal = () => {
+    setSelectedUser(null);
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEditModal = (user) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const handleSaveUser = (userData) => {
+    if (selectedUser) {
+      dispatch(editUser(userData));
+    } else {
+      dispatch(addUser(userData));
+    }
+  };
 
   return (
     <div className="p-4 overflow-x-auto">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-xl font-bold text-gray-800">
+          Foydalanuvchilar Ro'yxati
+        </h1>
+        <Button
+          variant="primary"
+          text="+ Qo'shish"
+          onClick={handleOpenAddModal}
+        />
+      </div>
+
       <table className="w-full text-left table-auto border-collapse border border-slate-300 shadow-sm rounded-lg overflow-hidden">
-        <thead className="bg-blue-700 text-white uppercase text-xs tracking-wider">
+        <thead className="bg-slate-800 text-white uppercase text-xs tracking-wider">
           <tr>
             <th className="py-3 px-4">ID</th>
             <th className="py-3 px-4">Rasm</th>
@@ -30,10 +64,22 @@ function Table() {
         </thead>
         <tbody className="divide-y divide-gray-200">
           {users.map((user) => (
-            <TableRow key={user.id} user={user} handleDelete={handleDelete} />
+            <TableRow
+              key={user.id}
+              user={user}
+              handleDelete={handleDelete}
+              handleEdit={handleOpenEditModal}
+            />
           ))}
         </tbody>
       </table>
+
+      <UserModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveUser}
+        currentUser={selectedUser}
+      />
     </div>
   );
 }

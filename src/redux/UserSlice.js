@@ -12,8 +12,28 @@ const usersSlice = createSlice({
     deleteUser: (state, action) => {
       state.users = state.users.filter((user) => user.id !== action.payload);
     },
+    addUser: (state, action) => {
+      const nextId =
+        state.users.length > 0
+          ? Math.max(...state.users.map((u) => Number(u.id) || 0)) + 1
+          : 1;
+
+      // unshift emas, push ishlatamiz:
+      state.users.push({
+        id: nextId,
+        ...action.payload,
+      });
+    },
+    editUser: (state, action) => {
+      const index = state.users.findIndex(
+        (user) => user.id === action.payload.id,
+      );
+      if (index !== -1) {
+        state.users[index] = action.payload;
+      }
+    },
   },
 });
 
-export const { deleteUser } = usersSlice.actions;
+export const { deleteUser, addUser, editUser } = usersSlice.actions;
 export default usersSlice.reducer;
