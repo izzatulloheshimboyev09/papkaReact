@@ -48,7 +48,7 @@ function Table() {
       </div>
 
       <table className="w-full text-left table-auto border-collapse border border-slate-300 shadow-sm rounded-lg overflow-hidden">
-        <thead className="bg-slate-800 text-white uppercase text-xs tracking-wider">
+        <thead className="bg-blue-800 text-white uppercase text-xs tracking-wider">
           <tr>
             <th className="py-3 px-4">ID</th>
             <th className="py-3 px-4">Rasm</th>
