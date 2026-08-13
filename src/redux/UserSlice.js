@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 import { users } from "../data/users";
 
 const initialState = {
@@ -17,5 +16,4 @@ const usersSlice = createSlice({
 });
 
 export const { deleteUser } = usersSlice.actions;
-
 export default usersSlice.reducer;

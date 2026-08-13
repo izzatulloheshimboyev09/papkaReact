@@ -1,21 +1,16 @@
 import React from "react";
 
 function Button({ variant, text, onClick }) {
-  // Variantlarga mos klasslar lug'ati (dictionary)
-  const variants = {
-    primary: "bg-blue-500 text-white hover:bg-blue-600",
-    secondary: "bg-gray-200 text-gray-700 hover:bg-gray-300",
-    danger: "bg-red-500 text-white hover:bg-red-600",
+  let varians = {
+    primary:
+      "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+    secondary:
+      "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded",
+    danger:
+      "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded",
   };
-
-  // Agar variant topilmasa, standart qiymatni olish uchun
-  let buttonStyle = variants[variant] || "bg-gray-100 text-gray-800";
-
   return (
-    <button
-      onClick={onClick}
-      className={`px-3 py-1.5 text-sm rounded transition-colors ${buttonStyle}`}
-    >
+    <button className={varians[variant]} onClick={onClick}>
       {text}
     </button>
   );
